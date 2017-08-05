@@ -15,8 +15,8 @@ class RedisDriver implements CacheDriverInterface
     /** @var array */
     protected $settings = [
         'driver' => 'default',
-        'config' => [
-        ],
+        'config' => [],
+        'prefix' => '',
     ];
 
     /** @var RedisStore */
@@ -33,7 +33,8 @@ class RedisDriver implements CacheDriverInterface
             new RedisManager(
                 $this->settings['driver'],
                 $this->settings['config']
-            )
+            ),
+            $this->settings['prefix']
         );
 
     }

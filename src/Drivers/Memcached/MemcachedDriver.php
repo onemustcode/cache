@@ -15,15 +15,14 @@ class MemcachedDriver implements CacheDriverInterface
     /** @var array */
     protected $settings = [
         'persistent_id' => null,
-        'sals' => [
-        ],
-        'options' => [
-        ],
+        'sals' => [],
+        'options' => [],
         'servers' => [
             'host' => '127.0.0.1',
             'port' => 11211,
             'weight' => 100,
         ],
+        'prefix' => '',
     ];
 
     /** @var MemcachedStore */
@@ -44,7 +43,8 @@ class MemcachedDriver implements CacheDriverInterface
                 $this->settings['persistent_id'],
                 $this->settings['options'],
                 $this->settings['sasl']
-            )
+            ),
+            $this->settings['prefix']
         );
     }
 
@@ -60,7 +60,7 @@ class MemcachedDriver implements CacheDriverInterface
         );
 
         if (is_null($result)) {
-            throw CacheDriverException::notFound();
+            throw CacheDriverException::notFound($item->getKey());
         }
 
         return $result;

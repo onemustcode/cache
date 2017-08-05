@@ -6,8 +6,14 @@ use Exception;
 
 class CacheDriverException extends Exception
 {
-    public static function notFound()
+    /**
+     * @param string $key
+     * @return CacheDriverException
+     */
+    public static function notFound($key)
     {
-
+        return new self(
+            sprintf('The given cache item with key [%s] is not found!', $key)
+        );
     }
 }

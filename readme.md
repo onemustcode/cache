@@ -1,5 +1,5 @@
 # Cache
-Cache is a simple to use library that caches objects. Multiple drivers are available like Memcached and Redis.
+Cache is a simple to use library that caches objects.
 
 ## Installation
 Require the Cache library trough composer.
@@ -9,8 +9,9 @@ composer require onemustcode/cache
 
 ## Usage
 Simple example on how to use the cache.
+
 ```php
-$driver = new MemcachedDriver($config);
+$driver = new MemcachedDriver();
 
 $cache = new Cache($driver);
 
@@ -25,6 +26,26 @@ $item->addTag(
 );
 
 $cache->store($item);
+```
+
+## Drivers
+Out of the box there are two drivers available, Memcached and Redis.
+
+### Memcached
+```php
+$drivers = new MemcachedDriver([
+    'prefix' => '', // Default empty, is for prefixing the keys
+    'persistent_id' => null, // Default null
+    'sals' => [], // Default empty array, is for authenticating; ['username', 'password']
+    'options' => [], // Default empty array, is for passing Memcached options
+    'servers' => [ // Default server settings for Memcached
+        'host' => '127.0.0.1',
+        'port' => 11211,
+        'weight' => 100,
+    ],
+]);
+
+$cache = new Cache($driver);
 ```
 
 ### Retrieve an item
